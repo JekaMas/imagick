@@ -5,7 +5,9 @@
 package imagick
 
 import (
+	"runtime"
 	"testing"
+	"time"
 )
 
 var (
@@ -30,7 +32,12 @@ func TestCloningAndDestroying(t *testing.T) {
 	if !clone.IsVerified() {
 		t.Fatal("Unsuccessful clone")
 	}
-	if clone.IsVerified() || !mw.IsVerified() {
+
+	clone = nil
+	runtime.GC()
+	time.Sleep(100 * time.Millisecond)
+
+	if !mw.IsVerified() {
 		t.Fatal("MagickWand not properly destroyed")
 	}
 }

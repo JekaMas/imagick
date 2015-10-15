@@ -163,7 +163,7 @@ func (mw *MagickWand) AnimateImages(server string) error {
 // stack them top-to-bottom.
 func (mw *MagickWand) AppendImages(topToBottom bool) *MagickWand {
 	newMw := &MagickWand{C.MagickAppendImages(mw.mw, b2i(topToBottom))}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -345,7 +345,7 @@ func (mw *MagickWand) ClutImageChannel(channel ChannelType, clut *MagickWand) er
 // sequence.
 func (mw *MagickWand) CoalesceImages() *MagickWand {
 	newMw := &MagickWand{C.MagickCoalesceImages(mw.mw)}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -398,7 +398,7 @@ func (mw *MagickWand) ColorMatrixImage(colorMatrix *KernelInfo) error {
 // image 1 => Red, 2 => Green, 3 => Blue, etc.
 func (mw *MagickWand) CombineImages(channel ChannelType) *MagickWand {
 	newMw := &MagickWand{C.MagickCombineImages(mw.mw, C.ChannelType(channel))}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -423,7 +423,7 @@ func (mw *MagickWand) CompareImageChannels(reference *MagickWand, channel Channe
 // bounding region of any pixel differences it discovers.
 func (mw *MagickWand) CompareImageLayers(method ImageLayerMethod) *MagickWand {
 	newMw := &MagickWand{C.MagickCompareImageLayers(mw.mw, C.ImageLayerMethod(method))}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -588,7 +588,7 @@ func (mw *MagickWand) DecipherImage(passphrase string) error {
 // bouding region of any pixel differences it discovers.
 func (mw *MagickWand) DeconstructImages() *MagickWand {
 	newMw := &MagickWand{C.MagickDeconstructImages(mw.mw)}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -972,7 +972,7 @@ func (mw *MagickWand) FxImageChannel(channel ChannelType, expression string) *Ma
 	defer C.free(unsafe.Pointer(csexpression))
 
 	newMw := &MagickWand{C.MagickFxImageChannel(mw.mw, C.ChannelType(channel), csexpression)}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -1030,7 +1030,7 @@ func (mw *MagickWand) GaussianBlurImageChannel(channel ChannelType, radius, sigm
 // Gets the image at the current image index.
 func (mw *MagickWand) GetImage() *MagickWand {
 	newMw := &MagickWand{C.MagickGetImage(mw.mw)}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -1044,7 +1044,7 @@ func (mw *MagickWand) GetImageAlphaChannel() bool {
 // Gets the image clip mask at the current image index.
 func (mw *MagickWand) GetImageClipMask() *MagickWand {
 	newMw := &MagickWand{C.MagickGetImageClipMask(mw.mw)}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -1384,7 +1384,7 @@ func (mw *MagickWand) GetImageRedPrimary() (x, y float64, err error) {
 // Extracts a region of the image and returns it as a a new wand.
 func (mw *MagickWand) GetImageRegion(width uint, height uint, x int, y int) *MagickWand {
 	newMw := &MagickWand{C.MagickGetImageRegion(mw.mw, C.size_t(width), C.size_t(height), C.ssize_t(x), C.ssize_t(y))}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -1689,7 +1689,7 @@ func (mw *MagickWand) MagnifyImage() error {
 // with negative offsets will be clipped.
 func (mw *MagickWand) MergeImageLayers(method ImageLayerMethod) *MagickWand {
 	newMw := &MagickWand{C.MagickMergeImageLayers(mw.mw, C.ImageLayerMethod(method))}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -1746,7 +1746,7 @@ func (mw *MagickWand) MontageImage(dw *DrawingWand, tileGeo string, thumbGeo str
 	defer C.free(unsafe.Pointer(csframe))
 
 	newMw := &MagickWand{C.MagickMontageImage(mw.mw, dw.dw, cstile, csthumb, C.MontageMode(mode), csframe)}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -1759,7 +1759,7 @@ func (mw *MagickWand) MontageImage(dw *DrawingWand, tileGeo string, thumbGeo str
 func (mw *MagickWand) MorphImages(numFrames uint) *MagickWand {
 	//
 	newMw := &MagickWand{C.MagickMorphImages(mw.mw, C.size_t(numFrames))}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -1946,7 +1946,7 @@ func (mw *MagickWand) OpaquePaintImageChannel(channel ChannelType, target, fill 
 // replace each frame, while preserving the results of the animation.
 func (mw *MagickWand) OptimizeImageLayers() *MagickWand {
 	newMw := &MagickWand{C.MagickOptimizeImageLayers(mw.mw)}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -2058,7 +2058,7 @@ func (mw *MagickWand) PosterizeImage(levels uint, dither bool) error {
 // an appropriate parameter for an image processing operation.
 func (mw *MagickWand) PreviewImages(preview PreviewType) *MagickWand {
 	newMw := &MagickWand{C.MagickPreviewImages(mw.mw, C.PreviewType(preview))}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -2836,7 +2836,7 @@ func (mw *MagickWand) SketchImage(radius, sigma, angle float64) error {
 //
 func (mw *MagickWand) SmushImages(stack bool, offset int) *MagickWand {
 	newMw := &MagickWand{C.MagickSmushImages(mw.mw, b2i(stack), C.ssize_t(offset))}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -2940,7 +2940,7 @@ func (mw *MagickWand) StatisticImageChannel(channel ChannelType, stype Statistic
 //
 func (mw *MagickWand) SteganoImage(watermark *MagickWand, offset int) *MagickWand {
 	newMw := &MagickWand{C.MagickSteganoImage(mw.mw, watermark.mw, C.ssize_t(offset))}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -2949,7 +2949,7 @@ func (mw *MagickWand) SteganoImage(watermark *MagickWand, offset int) *MagickWan
 // a left and right image of a stereo pair.
 func (mw *MagickWand) StereoImage(offset *MagickWand) *MagickWand {
 	newMw := &MagickWand{C.MagickStereoImage(mw.mw, offset.mw)}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -2974,7 +2974,7 @@ func (mw *MagickWand) SwirlImage(degrees float64) error {
 // Repeatedly tiles the texture image across and down the image canvas.
 func (mw *MagickWand) TextureImage(texture *MagickWand) *MagickWand {
 	newMw := &MagickWand{C.MagickTextureImage(mw.mw, texture.mw)}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }
@@ -3033,7 +3033,7 @@ func (mw *MagickWand) TransformImage(crop string, geometry string) *MagickWand {
 	defer C.free(unsafe.Pointer(csgeo))
 
 	newMw := &MagickWand{C.MagickTransformImage(mw.mw, cscrop, csgeo)}
-	runtime.SetFinalizer(newMw, newMw.Destroy)
+	runtime.SetFinalizer(newMw, Destroy)
 
 	return newMw
 }

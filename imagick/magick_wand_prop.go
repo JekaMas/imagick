@@ -46,7 +46,7 @@ func (mw *MagickWand) GetAntialias() bool {
 // Returns the wand background color
 func (mw *MagickWand) GetBackgroundColor() *PixelWand {
 	pw := &PixelWand{C.MagickGetBackgroundColor(mw.mw)}
-	runtime.SetFinalizer(pw, pw.Destroy)
+	runtime.SetFinalizer(pw, Destroy)
 
 	return pw
 }

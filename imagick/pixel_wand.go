@@ -21,7 +21,7 @@ type PixelWand struct {
 // Returns a new pixel wand
 func NewPixelWand() *PixelWand {
 	pw := &PixelWand{C.NewPixelWand()}
-	runtime.SetFinalizer(pw, pw.Destroy)
+	runtime.SetFinalizer(pw, Destroy)
 
 	return pw
 }
@@ -34,7 +34,7 @@ func (pw *PixelWand) Clear() {
 // Makes an exact copy of the wand
 func (pw *PixelWand) Clone() *PixelWand {
 	pwCloned := &PixelWand{C.ClonePixelWand(pw.pw)}
-	runtime.SetFinalizer(pwCloned, pwCloned.Destroy)
+	runtime.SetFinalizer(pwCloned, Destroy)
 
 	return pw
 }

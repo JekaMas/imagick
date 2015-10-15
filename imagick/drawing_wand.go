@@ -20,7 +20,7 @@ type DrawingWand struct {
 // Returns a drawing wand required for all other methods in the API.
 func NewDrawingWand() *DrawingWand {
 	dw := &DrawingWand{C.NewDrawingWand()}
-	runtime.SetFinalizer(dw, dw.Destroy)
+	runtime.SetFinalizer(dw, Destroy)
 
 	return dw
 }
@@ -33,7 +33,7 @@ func (dw *DrawingWand) Clear() {
 // Makes an exact copy of the specified wand.
 func (dw *DrawingWand) Clone() *DrawingWand {
 	clonedDw := &DrawingWand{C.CloneDrawingWand(dw.dw)}
-	runtime.SetFinalizer(clonedDw, clonedDw.Destroy)
+	runtime.SetFinalizer(clonedDw, Destroy)
 
 	return clonedDw
 }
